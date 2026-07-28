@@ -1,35 +1,83 @@
 # OpenCode → Prune
 
-**Surfaces:** Terminal only (CLI-native — OpenCode *is* the CLI; no separate
-VS Code extension).  
-**Expected setup time:** ~10–15 minutes (config file + auth login; slightly
-more friction than Cline/Kilo).
+**Surfaces:** Terminal only (CLI-native)  
+**Expected setup time:** ~10–15 minutes (config file + auth)
+
+OpenCode does **not** use the VS Code “OpenAI Compatible” UI. You add a
+custom provider in `opencode.json`, then store the `prune_…` key with
+`opencode auth login`.
 
 ## Steps
 
 1. Install [OpenCode](https://opencode.ai/).
-2. Copy `opencode.json.example` to `~/.config/opencode/opencode.json`
-   (Windows: `%USERPROFILE%\.config\opencode\opencode.json`) or a project
-   `opencode.json`.
-3. Adjust the model id under `models` to a vaulted id you use.
-4. Authenticate (preferred — keeps the key out of the JSON file):
+2. Copy the example config:
+
+   ```bash
+   # macOS / Linux
+   mkdir -p ~/.config/opencode
+   cp configs/opencode/opencode.json.example ~/.config/opencode/opencode.json
+
+   # Windows (PowerShell)
+   New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode"
+   Copy-Item configs\opencode\opencode.json.example "$env:USERPROFILE\.config\opencode\opencode.json"
+   ```
+
+   Or place `opencode.json` in your project root.
+
+3. Edit the file so it looks like this (adjust model ids to ones you vaulted):
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "prune": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Prune",
+      "options": {
+        "baseURL": "https://api.withprune.com/v1"
+      },
+      "models": {
+        "gpt-4o-mini": { "name": "GPT-4o mini (via Prune)" }
+      }
+    }
+  },
+  "model": "prune/gpt-4o-mini"
+}
+```
+
+Important:
+- Use `@ai-sdk/openai-compatible` (not `@ai-sdk/openai`)
+- Put `baseURL` only — **do not** put `apiKey` in the JSON
+- Model picker entries must be listed under `provider.prune.models`
+
+4. Authenticate (stores the key outside the JSON file):
 
 ```bash
 opencode auth login
-# Other → provider id: prune → paste prune_…
+# Other → provider id: prune → paste your prune_… key
 ```
 
-5. Start OpenCode and select `prune/<model>`.
+5. Start OpenCode and select `prune/gpt-4o-mini` (or another model you listed).
+6. Send a short prompt; confirm a reply and a Prune dashboard receipt.
+
+### Switch models
+
+1. Vault the provider for that model in Prune (OpenAI / Anthropic / OpenRouter).
+2. Add the model id under `provider.prune.models` in `opencode.json`.
+3. Set `"model": "prune/<id>"` or pick it in the UI.
+
+Example OpenRouter-style id: `"openai/gpt-4o-mini"` → select `prune/openai/gpt-4o-mini`
+only if you listed that key under `models`.
 
 ## Checks
 
 - `opencode.json` has `baseURL` but **no** plaintext `apiKey`
 - Chat returns a reply; Prune dashboard shows a receipt
-- Use `@ai-sdk/openai-compatible` for `/v1/chat/completions` (Prune’s OpenAI path)
+- Provider id used at auth login is exactly `prune` (matches JSON)
 
 ## Optional run-budget headers
 
-If you need per-run spend brakes, add under `options`:
+Under `provider.prune.options`:
 
 ```json
 "headers": {
@@ -44,4 +92,6 @@ If you need per-run spend brakes, add under `options`:
 |---------|----------------|
 | Model missing from picker | Model not listed under `provider.prune.models` |
 | Wrong path / empty responses | Used `@ai-sdk/openai` instead of `openai-compatible` |
-| Calls miss Prune | Auth login skipped; key bound to a different provider id |
+| Calls miss Prune | Auth login skipped, or key bound to a different provider id |
+| 401 | Wrong / revoked `prune_…`, or auth for id other than `prune` |
+| Model error | Model id not vaulted under Connect → Providers |

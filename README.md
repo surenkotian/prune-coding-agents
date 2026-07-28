@@ -66,43 +66,63 @@ Model:     <any vaulted model id>
 
 ## Setup by tool
 
+Every tool below uses the same Prune values. Change only the **model id** to
+use another vaulted provider (OpenAI, Anthropic, OpenRouter).
+
 ### Cline (VS Code / JetBrains / CLI / SDK)
 
 1. Install [Cline](https://cline.bot)
-2. Settings (or CLI config) → **API Provider** → **OpenAI Compatible**
-3. Set Base URL, API Key (`prune_…`), and Model ID as above
-4. Same values work whether you're using the extension, the standalone
-   CLI, or the SDK directly.
+2. Settings → **API Provider** → **OpenAI Compatible**
+3. Paste:
 
-Full config: [configs/cline.md](./configs/cline.md)
+| Field | Value |
+|-------|--------|
+| Base URL | `https://api.withprune.com/v1` |
+| API Key | `prune_…` |
+| Model ID | vaulted id (e.g. `gpt-4o-mini`) |
+
+4. Short prompt → reply → Prune dashboard shows a receipt
+
+Full walkthrough: [configs/cline.md](./configs/cline.md)
 
 ### Kilo Code (VS Code / CLI)
 
-Same OpenAI Compatible fields as Cline, in either the extension or the
-CLI (`npm i -g @kilocode/cli`). Do not paste `sk-…` / `sk-ant-…` directly
-into Kilo — only your `prune_…` key.
+1. Install [Kilo Code](https://kilo.ai/) or `npm i -g @kilocode/cli`
+2. Provider settings → **OpenAI Compatible** (BYOK — not Kilo Gateway)
+3. Same three fields as Cline (table above)
+4. Short prompt → reply → Prune dashboard shows a receipt
 
-Full config: [configs/kilo-code.md](./configs/kilo-code.md)
+Full walkthrough: [configs/kilo-code.md](./configs/kilo-code.md)
 
 ### OpenCode (terminal)
 
-Copy [configs/opencode/opencode.json.example](./configs/opencode/opencode.json.example)
-to `~/.config/opencode/opencode.json`, then:
+OpenCode is CLI-only — no VS Code “OpenAI Compatible” picker.
+
+1. Install [OpenCode](https://opencode.ai/)
+2. Copy [configs/opencode/opencode.json.example](./configs/opencode/opencode.json.example)
+   → `~/.config/opencode/opencode.json` (Windows:
+   `%USERPROFILE%\.config\opencode\opencode.json`)
+3. Keep `@ai-sdk/openai-compatible` and `baseURL` — **no** `apiKey` in JSON
+4. Authenticate:
 
 ```bash
 opencode auth login
-# choose Other → provider id `prune` → paste prune_…
+# Other → provider id: prune → paste prune_…
 ```
 
-Prefer auth login over putting `apiKey` in the JSON file.
+5. Select `prune/<model>` → short prompt → Prune dashboard receipt
+
+Full walkthrough: [configs/opencode/README.md](./configs/opencode/README.md)
 
 ### Zoo Code (VS Code, optional)
 
-Install [Zoo Code](https://marketplace.visualstudio.com/items?itemName=zoocodeorganization.zoo-code)
-from the VS Code Marketplace, then use the same OpenAI Compatible path as
-Cline.
+1. Install [Zoo Code](https://marketplace.visualstudio.com/items?itemName=zoocodeorganization.zoo-code)
+2. **API Provider** → **OpenAI Compatible**
+3. Same three fields as Cline (table above)
+4. If you imported Roo settings, delete leftover `sk-…` keys
+5. Short prompt → reply → Prune dashboard receipt
 
-Full config: [configs/zoo-code.md](./configs/zoo-code.md)
+Full walkthrough: [configs/zoo-code.md](./configs/zoo-code.md)
 
 ## Try it in 2 minutes
 
