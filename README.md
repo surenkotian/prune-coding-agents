@@ -44,7 +44,7 @@ across whichever surface you actually use.
 |------|----------|------------|
 | **Cline** | VS Code, JetBrains, standalone CLI, SDK | ~5–10 min |
 | **Kilo Code** | VS Code, CLI (`@kilocode/cli`) | ~5–10 min |
-| **OpenCode** | Terminal (CLI-native) | ~10–15 min |
+| **OpenCode** | Desktop app + terminal CLI | ~10–15 min |
 | **Zoo Code** | VS Code | ~5–10 min |
 
 Every surface for every tool takes the same base URL + key — configure it
@@ -94,9 +94,10 @@ Full walkthrough: [configs/cline.md](./configs/cline.md)
 
 Full walkthrough: [configs/kilo-code.md](./configs/kilo-code.md)
 
-### OpenCode (terminal)
+### OpenCode (Desktop + CLI)
 
-OpenCode is CLI-only — no VS Code “OpenAI Compatible” picker.
+OpenCode uses `opencode.json` + auth — not a VS Code “OpenAI Compatible” picker.
+Same setup for the **Desktop** app and the terminal CLI.
 
 1. Install [OpenCode](https://opencode.ai/)
 2. Copy [configs/opencode/opencode.json.example](./configs/opencode/opencode.json.example)

@@ -1,11 +1,11 @@
 # OpenCode → Prune
 
-**Surfaces:** Terminal only (CLI-native)  
+**Surfaces:** OpenCode Desktop app and terminal CLI  
 **Expected setup time:** ~10–15 minutes (config file + auth)
 
-OpenCode does **not** use the VS Code “OpenAI Compatible” UI. You add a
+OpenCode does **not** use a VS Code “OpenAI Compatible” UI. You add a
 custom provider in `opencode.json`, then store the `prune_…` key with
-`opencode auth login`.
+`opencode auth login`. Same config works in **Desktop** and the CLI.
 
 ## Steps
 
