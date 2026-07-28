@@ -53,3 +53,4 @@ already be vaulted under Connect → Providers.
 | Works but no Prune usage | Real provider key pasted instead of `prune_…` |
 | Model error | Model id not vaulted under Connect → Providers |
 | Inherited Roo/Zoo export errors | Old keys still in imported settings |
+| `400` max_tokens too large | Agent default (e.g. 32000) above model cap — Prune clamps known OpenAI limits; or lower max tokens in Kilo settings |
