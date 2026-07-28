@@ -1,0 +1,12 @@
+prune-coding-agents
+Copyright 2026 Suren Kotian / Prune
+
+This product provides client-side configuration examples for pointing
+OpenAI-compatible coding agents at the Prune API (https://www.withprune.com).
+
+"Prune" and "withprune" are product names of the Prune service. This
+repository does not include Prune server software, vault implementation,
+or Shield enforcement logic.
+
+Third-party tools referenced here (Cline, Kilo Code, OpenCode, Zoo Code)
+are separate projects with their own licenses and trademarks.
