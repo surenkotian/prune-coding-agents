@@ -1,13 +1,13 @@
 # Cline → Prune
 
-**Expected setup time:** ~5–10 minutes (extension install + three fields).
+**Surfaces:** VS Code, JetBrains, standalone CLI, SDK  
+**Expected setup time:** ~5–10 minutes (install + three fields).
 
 ## Steps
 
-1. Install the Cline extension in VS Code (or a compatible editor).
-2. Open Cline settings (gear icon).
-3. **API Provider** → **OpenAI Compatible**.
-4. Fill in:
+1. Install [Cline](https://cline.bot) (extension, CLI, and/or SDK).
+2. Settings (or CLI / SDK config) → **API Provider** → **OpenAI Compatible**.
+3. Fill in:
 
 | Field | Value |
 |-------|--------|
@@ -15,11 +15,12 @@
 | API Key | your `prune_…` key |
 | Model ID | a vaulted id (e.g. `gpt-4o-mini`) |
 
-5. Send a short prompt and confirm a reply.
+4. Send a short prompt and confirm a reply. The same three values work
+   across the extension, standalone CLI, and SDK.
 
 ## Checks
 
-- Cline settings / exported config show `prune_…`, **not** `sk-…` / `sk-ant-…`
+- Cline settings / exported / CLI config show `prune_…`, **not** `sk-…` / `sk-ant-…`
 - Prune dashboard shows usage / a receipt for the call
 - Base URL ends at `/v1` (not `/v1/chat/completions`)
 

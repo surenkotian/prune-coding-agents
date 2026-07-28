@@ -1,5 +1,6 @@
 # Zoo Code → Prune (optional)
 
+**Surfaces:** VS Code extension (no separate CLI claimed here).  
 **Expected setup time:** ~5–10 minutes (OpenAI Compatible; same fields as Cline).
 
 Zoo Code is the community successor to Roo Code. Use it if you want continuity

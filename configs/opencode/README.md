@@ -1,5 +1,7 @@
 # OpenCode → Prune
 
+**Surfaces:** Terminal only (CLI-native — OpenCode *is* the CLI; no separate
+VS Code extension).  
 **Expected setup time:** ~10–15 minutes (config file + auth login; slightly
 more friction than Cline/Kilo).
 

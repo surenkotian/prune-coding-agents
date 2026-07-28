@@ -1,13 +1,16 @@
 # Kilo Code → Prune
 
+**Surfaces:** VS Code extension and CLI (`npm i -g @kilocode/cli`) — same
+core engine on both.  
 **Expected setup time:** ~5–10 minutes (same OpenAI Compatible path as Cline).
 
 ## Steps
 
-1. Install [Kilo Code](https://kilo.ai/) (VS Code / JetBrains / CLI as you prefer).
-2. Open provider settings and choose **OpenAI Compatible** (or equivalent
-   custom OpenAI-compatible endpoint) — not a subscription-only gateway path
-   if you want traffic through Prune.
+1. Install [Kilo Code](https://kilo.ai/) for VS Code and/or
+   `npm i -g @kilocode/cli`.
+2. Open provider settings (extension or CLI) and choose **OpenAI Compatible**
+   (or equivalent custom OpenAI-compatible endpoint) — not a
+   subscription-only gateway path if you want traffic through Prune.
 3. Fill in:
 
 | Field | Value |
