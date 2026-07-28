@@ -10,7 +10,9 @@ note where and open an issue.
 - [ ] Fresh Prune account / unused `prune_…` key
 - [ ] Vault only a cheap model (e.g. `gpt-4o-mini`) under Connect → Providers
 - [ ] Confirm **no** `sk-` / `sk-ant-` / OpenRouter key will be pasted into agents
-- [ ] Baseline: `./examples/curl-smoke.sh prune_…` succeeds
+- [ ] Baseline smoke succeeds:
+      - Bash / Git Bash: `./examples/curl-smoke.sh prune_…`
+      - PowerShell: the two `curl.exe` requests documented in the README
 - [ ] Note dashboard: usage empty → expect first receipt after tool tests
 - [ ] Plan spend-cap test: Shield daily cap near `$0.05`, **or** run-budget
       headers (`X-Prune-Run-Budget-Usd`)

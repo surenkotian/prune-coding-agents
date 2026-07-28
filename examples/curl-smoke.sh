@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Smoke-test Prune OpenAI-compatible endpoints.
 # Usage: ./examples/curl-smoke.sh prune_your_key [model_id]
+#
+# Windows: run from Git Bash, or WSL. For native PowerShell, use the
+# curl.exe examples in the README instead of this script.
 set -euo pipefail
 
 KEY="${1:-}"

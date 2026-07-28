@@ -8,7 +8,8 @@ with Roo-style workflows; otherwise prefer Cline or Kilo Code.
 
 ## Steps
 
-1. Install Zoo Code from the VS Code Marketplace.
+1. Install [Zoo Code](https://marketplace.visualstudio.com/items?itemName=zoocodeorganization.zoo-code)
+   from the VS Code Marketplace.
 2. **API Provider** → **OpenAI Compatible**.
 3. Fill in:
 

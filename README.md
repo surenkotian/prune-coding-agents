@@ -6,26 +6,29 @@ plaintext in a local config file right now. There's no spend limit
 stopping a runaway session from blowing past what you meant to spend, and
 no record of what any single call actually cost.
 
-**Prune fixes all three of those in one line of code, regardless of which
-surface you use.**
+**Prune addresses those three problems with one OpenAI-compatible base URL
+change** (base URL + `prune_…` key + model id), on whichever surface you use.
 
 ## What you get
 
-- **Your key is never exposed.** Vault your real OpenAI / Anthropic /
-  OpenRouter key once in Prune. Your agent only ever sees a `prune_…` key
-  — the real one never touches your local config, your CLI history, or
-  your dotfiles.
-- **A hard spend cap, enforced before the call happens.** Set a daily or
-  per-run budget. Prune blocks the request *before* it's made if you're
-  over — not after you've already been billed.
-- **Lower bills, automatically.** Prune caches and compresses your traffic
-  by default — including near-duplicate requests, not just exact repeats.
-  Nothing to configure; it's on from the moment you're routed through
-  Prune.
-- **A signed receipt for every call.** Every response includes a
-  cryptographically verifiable record of exactly what it cost, which
-  model was used, and whether it was served from cache. Verify any
-  receipt at [withprune.com/verify](https://www.withprune.com/verify).
+- **Provider keys stay out of the agent config.** Vault your real OpenAI /
+  Anthropic / OpenRouter key once in Prune. The agent only needs a
+  `prune_…` key — treat that like any other secret (don’t commit it), but
+  the upstream `sk-…` / `sk-ant-…` never has to live in local config, CLI
+  history, or shared dotfiles.
+- **Spend caps on traffic through Prune.** Set a daily or per-run budget.
+  When the ceiling is reached, Prune rejects further requests with `429`
+  (`X-Prune-Shield-Code: spend_cap` or `run_budget`) instead of letting
+  the session run unbounded. Near-limit behavior can depend on completed
+  spend vs. pending estimates — see product docs for the exact rules.
+- **Lower bills on routed traffic.** Prune applies caching and compression
+  on compatible traffic by default (exact and near-duplicate reuse where
+  the pipeline allows). Results vary by workload; repeats and long agent
+  threads benefit most.
+- **A receipt on every response.** Each proxied call returns
+  `prune_metadata` (cost, model, cache fields, etc.). When receipt signing
+  is enabled on the server, that metadata is Ed25519-signed and verifiable
+  at [withprune.com/verify](https://www.withprune.com/verify).
 
 ## Why this matters for coding agents specifically
 
@@ -95,24 +98,32 @@ Prefer auth login over putting `apiKey` in the JSON file.
 
 ### Zoo Code (VS Code, optional)
 
-Same OpenAI Compatible path as Cline.
+Install [Zoo Code](https://marketplace.visualstudio.com/items?itemName=zoocodeorganization.zoo-code)
+from the VS Code Marketplace, then use the same OpenAI Compatible path as
+Cline.
 
 Full config: [configs/zoo-code.md](./configs/zoo-code.md)
 
 ## Try it in 2 minutes
 
 ```bash
+# macOS / Linux / Git Bash
 ./examples/curl-smoke.sh prune_your_key
+
+# PowerShell (Windows) — same two requests without bash:
+# curl.exe https://api.withprune.com/v1/models -H "Authorization: Bearer prune_…"
+# curl.exe https://api.withprune.com/v1/chat/completions `
+#   -H "Authorization: Bearer prune_…" -H "Content-Type: application/json" `
+#   -d '{\"model\":\"gpt-4o-mini\",\"messages\":[{\"role\":\"user\",\"content\":\"ping\"}],\"max_tokens\":16}'
 ```
 
-Look for `prune_metadata` in the response — it includes cost, cache
-status, and whether the call was served from cache and saved you money.
+Look for `prune_metadata` in the response (cost, model, cache fields). If
+signing is enabled, you should also see `receipt_signature`.
 
 ## Setting a spend cap
 
 Dashboard → Optimize → Shield → set a daily cap on your key. Over budget,
-requests return `429` with `X-Prune-Shield-Code: spend_cap` — blocked
-before it costs you anything.
+requests return `429` with `X-Prune-Shield-Code: spend_cap`.
 
 ## Manual test plan
 
